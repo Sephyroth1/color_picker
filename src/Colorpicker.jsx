@@ -1,12 +1,17 @@
 import { useState } from 'react';
 import React from 'react';
 import './colorpicker.css';
+import { useQuery } from '@tanstack/react-query';
 
 function Colorpicker() {
 	const [color, setColor] = useState("#ffffff");
 	const [active, setActive] = useState(false);
 	const [edit, setEdit] = useState(false);
 	const [inpColor, setinpColor] = useState('#ffffff')
+	const fetcher = async () => {
+		const res = await fetch(`https://www.thecolorapi.com/id?hex=${color.replace('#', '')}`);
+		return res.json()
+	}
 
 	const handleMouseEnter = function() {
 		setActive(true);
@@ -36,6 +41,26 @@ function Colorpicker() {
 			handleInputBlur();
 		}
 	}
+	const { status, data, error, isFetching } = useQuery({
+		queryKey: ['colors', color],
+		queryFn: fetcher,
+		refetchOnWindowFocus: true
+	});
+	if (status === 'loading') {
+		<div>Loading</div>
+	}
+	if (status === 'error') {
+		<div>Error: {error}</div>
+	}
+	if (!data) {
+		<div>Not Working</div>
+	}
+	if (isFetching) {
+		<div>Fetching</div>
+	}
+	const name = data?.name?.value;
+	const rgb = data?.rgb?.value;
+	const hsl = data?.hsl?.value;
 	return (
 		<div className='container-text'>
 			<div className='color-show' style={{ backgroundColor: color }}>
@@ -45,6 +70,9 @@ function Colorpicker() {
 					(<p className="text-color" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ color: active ? color : 'black' }} onClick={mouseclick}>{color}</p>)};
 			</div>
 			<input type="color" className='color-picker' onChange={handleColorChange} value={color} />
+			<div>name of the color: {name}</div>
+			<div>rgb values of the color : {rgb}</div>
+			<div>hsl values of the color : {hsl}</div>
 		</div>
 	);
 }
