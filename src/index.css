@@ -5,3 +5,8 @@
     padding: 0;
     box-sizing: border-box;
 }
+
+@font-face {
+    font-family: 'PlaywrightMX';
+    src: local('PlaywrightMX') url('./fonts/Playwrite_MX/static/PlaywriteMX-Regular.ttf') format('truetype');
+}

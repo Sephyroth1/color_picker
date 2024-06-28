@@ -61,6 +61,7 @@ function Colorpicker() {
 	const name = data?.name?.value;
 	const rgb = data?.rgb?.value;
 	const hsl = data?.hsl?.value;
+
 	return (
 		<div className='container-text'>
 			<div className='color-show' style={{ backgroundColor: color }}>
@@ -70,9 +71,9 @@ function Colorpicker() {
 					(<p className="text-color" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ color: active ? color : 'black' }} onClick={mouseclick}>{color}</p>)};
 			</div>
 			<input type="color" className='color-picker' onChange={handleColorChange} value={color} />
-			<div>name of the color: {name}</div>
-			<div>rgb values of the color : {rgb}</div>
-			<div>hsl values of the color : {hsl}</div>
+			<div className='names-color'>name of the color: {name}</div>
+			<div className='rgb-color'>rgb values of the color : {rgb}</div>
+			<div className='hsl-color'>hsl values of the color : {hsl}</div>
 		</div>
 	);
 }
