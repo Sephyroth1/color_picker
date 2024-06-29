@@ -66,7 +66,7 @@ function Colorpicker() {
 		<div className='container-text'>
 			<div className='color-show' style={{ backgroundColor: color }}>
 				{edit ?
-					(<input type='text' value={inpColor} onChange={handleInputColor} onBlur={handleInputBlur} onKeyDown={handleInputKeyPress} autoFocus />)
+					(<input type='text' value={inpColor} onChange={handleInputColor} onBlur={handleInputBlur} onKeyDown={handleInputKeyPress} autoFocus className='color-input' />)
 					:
 					(<p className="text-color" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave} style={{ color: active ? color : 'black' }} onClick={mouseclick}>{color}</p>)};
 			</div>
